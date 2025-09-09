@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour
             int preFabsRandom = Random.Range(0, preFabs.Count);
             GameObject b = Instantiate(preFabs[preFabsRandom], transform.position, Quaternion.identity);
             lastTime = Time.time;
-            time = Random.Range(1, 4);
+            time = Random.Range(1, 3);
             Destroy(b, 12);
         }
         

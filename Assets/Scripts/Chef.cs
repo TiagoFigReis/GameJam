@@ -7,6 +7,8 @@ public class Chef : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    private Score score;
+
     private int bun = 0, cheese = 0, steak = 0;
     
     [SerializeField] private float speed;
@@ -21,6 +23,7 @@ public class Chef : MonoBehaviour
     {
         rb =  GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        score = FindFirstObjectByType<Score>();
     }
 
   
@@ -51,7 +54,6 @@ public class Chef : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        print(value.isPressed);
         isAttacking = value.isPressed;
     }
 
@@ -65,17 +67,14 @@ public class Chef : MonoBehaviour
         if (collision.gameObject.CompareTag("bun"))
         {
             bun++;
-            print("oi");
             Destroy(collision.gameObject);
         } else if (collision.gameObject.CompareTag("steak"))
         {
             steak++;
-            print("oi");
             Destroy(collision.gameObject);
         } else if (collision.gameObject.CompareTag("cheese"))
         {
             cheese++;
-            print("oi");
             Destroy(collision.gameObject);
         }
         
@@ -84,7 +83,7 @@ public class Chef : MonoBehaviour
             
             GameObject burgerIn = Instantiate(burger, transform.position, Quaternion.identity);
             Destroy(burgerIn, 1);
-
+            score.AddScore();
             bun--;
             cheese--;
             steak--;
@@ -95,8 +94,9 @@ public class Chef : MonoBehaviour
             return;
         }
         
-            
         Animator anim =  collision.gameObject.GetComponent<Animator>();
+        
+        Destroy(gameObject, 0.4f);
 
         anim.enabled = true;
         
